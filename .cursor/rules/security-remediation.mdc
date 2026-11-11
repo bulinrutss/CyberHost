@@ -1,0 +1,23 @@
+---
+description: Processo obrigatório para corrigir a auditoria de segurança por etapas
+alwaysApply: true
+---
+
+# Remediação de segurança
+
+- Use `docs/SECURITY_REMEDIATION.md` como fonte única do checklist.
+- Corrija apenas um achado por vez, priorizando: Crítico → Alto → Médio → Baixo.
+- Antes de editar, confirme o escopo e preserve o Linux como fonte de verdade para arquivos que possam divergir.
+- Não altere nem imprima segredos em logs, respostas, commits ou scripts persistentes.
+- Um item só recebe `[x]` depois de:
+  1. implementação local concluída;
+  2. lint/build/teste relevante aprovado;
+  3. deploy cirúrgico no Linux quando afetar produção;
+  4. verificação pós-deploy aprovada.
+- Se a correção exigir rotação de segredo, faça a rotação sem revelar o valor e registre apenas que ela ocorreu.
+- Não misture limpeza ou refatoração sem relação com o achado atual.
+- Ao concluir cada etapa, atualize o checklist e inclua no fim da resposta:
+  - item corrigido;
+  - testes/deploy executados;
+  - checklist completo com `[x]` e `[ ]`;
+  - próximo item crítico recomendado.

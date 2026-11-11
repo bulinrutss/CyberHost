@@ -1,0 +1,11 @@
+---
+description: Produção na VM pública; não atualizar a VPS Linux da LAN
+alwaysApply: true
+---
+
+# Destino de deploy
+
+- Atualize código e serviços **só no workspace local e na VM de produção** (`ubuntu@147.15.80.246`).
+- **Não** copie código, .env, nginx, systemd nem frontend para `192.168.0.105` (VPS Linux da LAN). Ela sai de cena quando a migração terminar.
+- O `.105` serve **somente** como origem do MariaDB (`vps_host`) para refrescar a produção no cutover de DNS, se ainda houver dados novos lá.
+- Produção do painel, site e Discord é a VM pública. ESXi e o proxy de portas continuam na LAN, alcançados pelo WireGuard no `.127`.
