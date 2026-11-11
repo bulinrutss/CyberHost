@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+*.db
+
+# Node
+node_modules/
+.next/
+out/
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+backend/data/finance_receipts/
+
+# Arquivos locais e artefatos que podem conter credenciais
+backend.zip
+scripts/remote_*.py
+scripts/probe_*.py
+scripts/.env
+scripts/.env.*
+!scripts/.env.example

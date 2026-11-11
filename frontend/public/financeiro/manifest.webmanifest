@@ -1,0 +1,35 @@
+{
+  "id": "/financeiro",
+  "name": "Financeiro",
+  "short_name": "Financeiro",
+  "description": "Gastos, entradas, metas e agenda. Funciona no navegador e também como aplicativo.",
+  "start_url": "/financeiro",
+  "scope": "/financeiro",
+  "display": "standalone",
+  "display_override": ["standalone", "browser"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "background_color": "#0f1419",
+  "theme_color": "#06c96c",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

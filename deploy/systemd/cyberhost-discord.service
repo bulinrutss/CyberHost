@@ -1,0 +1,19 @@
+[Unit]
+Description=CyberHost Discord Gateway (CyberCloud bots online)
+After=network-online.target
+Wants=network-online.target
+PartOf=cyberhost.target
+
+[Service]
+Type=simple
+User=rts
+# Arquivos criados pelo serviço nascem 600.
+UMask=0077
+WorkingDirectory=/opt/host/backend
+EnvironmentFile=/opt/host/backend/.env
+ExecStart=/opt/host/backend/.venv/bin/python -m app.services.discord_gateway
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target cyberhost.target

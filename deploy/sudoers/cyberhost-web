@@ -1,0 +1,3 @@
+# Copiar para /etc/sudoers.d/cyberhost-web (chmod 440, visudo -c).
+Cmnd_Alias CYBERHOST_WEB = /opt/host/backend/.venv/bin/python /opt/host/backend/scripts/web_process_spawn.py *, /usr/sbin/nginx -t, /usr/bin/systemctl reload nginx, /usr/bin/certbot *
+rts ALL=(root) NOPASSWD: CYBERHOST_WEB

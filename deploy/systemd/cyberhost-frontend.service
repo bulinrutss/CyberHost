@@ -1,0 +1,21 @@
+[Unit]
+Description=CyberHost Frontend (Next.js)
+After=network-online.target cyberhost-backend.service
+Wants=network-online.target cyberhost-backend.service
+PartOf=cyberhost.target
+
+[Service]
+Type=simple
+User=rts
+# Arquivos criados pelo serviço nascem 600 (ex.: .env*).
+UMask=0077
+WorkingDirectory=/opt/host/frontend
+Environment=NODE_ENV=production
+Environment=NEXT_PUBLIC_BASE_PATH=/cyberhost
+Environment=NEXT_PUBLIC_API_URL=
+ExecStart=/usr/bin/npm run start -- -H 127.0.0.1 -p 3000
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target cyberhost.target

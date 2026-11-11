@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+"""Root helper: inicia/para o game isolado (UID + cgroup). Não usa shell com o comando."""
+
+from __future__ import annotations
+
+import argparse
+import os
+import pwd
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from app.services.game_sandbox import (  # noqa: E402
+    is_allowed_executable,
+    is_safe_cwd,
+    is_under_root,
+    parse_unit_server_id,
+    prepare_sandbox_tree,
+    unit_name,
+)
+
+
+def _require_root() -> None:
+    if os.geteuid() != 0:
+        raise SystemExit("game_process_spawn.py deve rodar como root")
+
+
+def _lookup(user: str) -> pwd.struct_passwd:
+    try:
+        return pwd.getpwnam(user)
+    except KeyError as exc:
+        raise SystemExit(f"usuário {user} inexistente") from exc
+
+
+def _stop_unit(unit: str) -> None:
+    parse_unit_server_id(unit)
+    subprocess.run(["/bin/systemctl", "stop", unit], check=False, capture_output=True)
+    subprocess.run(["/bin/systemctl", "reset-failed", unit], check=False, capture_output=True)
+
+
+def _main_pid(unit: str, timeout: float = 5.0) -> int:
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        result = subprocess.run(
+            ["/bin/systemctl", "show", "-p", "MainPID", "--value", unit],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        pid = (result.stdout or "").strip()
+        if pid.isdigit() and int(pid) > 1:
+            return int(pid)
+        time.sleep(0.1)
+    raise SystemExit(f"MainPID indisponível para {unit}")
+
+
+def spawn(args: argparse.Namespace) -> int:
+    _require_root()
+    unit = unit_name(args.server_id)
+    owner = _lookup(args.owner)
+    game = _lookup(args.user)
+    data_root = Path(args.data_root)
+    cwd = Path(args.cwd)
+    log_path = Path(args.log)
+    command = list(args.command)
+    if not command:
+        raise SystemExit("comando vazio")
+    if not is_safe_cwd(cwd, data_root):
+        raise SystemExit("cwd fora do data root")
+    exe = Path(command[0])
+    if not exe.is_absolute():
+        raise SystemExit("binário deve ser caminho absoluto")
+    allow = [Path(item) for item in args.allow_bin]
+    if not is_allowed_executable(exe, data_root, allow):
+        raise SystemExit("binário não permitido")
+    if not log_path.is_absolute() or not is_under_root(log_path, cwd):
+        raise SystemExit("log fora do diretório do servidor")
+
+    prepare_sandbox_tree(cwd, owner_uid=owner.pw_uid, game_gid=game.pw_gid)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    if not log_path.exists():
+        log_path.touch()
+    os.chown(log_path, owner.pw_uid, game.pw_gid)
+    os.chmod(log_path, 0o660)
+
+    memory_mb = max(128, int(args.memory_mb))
+    cpu_quota = max(10, min(400, int(args.cpu_quota)))
+    tasks_max = max(8, min(512, int(args.tasks_max)))
+
+    _stop_unit(unit)
+    result = subprocess.run(
+        [
+            "/usr/bin/systemd-run",
+            f"--unit={unit.removesuffix('.service')}",
+            f"--uid={game.pw_name}",
+            f"--gid={game.pw_name}",
+            f"--working-directory={cwd}",
+            f"--property=MemoryMax={memory_mb}M",
+            "--property=MemorySwapMax=0",
+            f"--property=CPUQuota={cpu_quota}%",
+            f"--property=TasksMax={tasks_max}",
+            "--property=LimitCORE=0",
+            "--property=NoNewPrivileges=yes",
+            "--property=PrivateTmp=yes",
+            "--property=ProtectHome=yes",
+            "--property=RestrictSUIDSGID=yes",
+            "--property=LockPersonality=yes",
+            "--property=UMask=002",
+            f"--property=StandardOutput=append:{log_path}",
+            "--property=StandardError=inherit",
+            "--collect",
+            "--service-type=exec",
+            "--quiet",
+            "--",
+            *command,
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        err = (result.stderr or result.stdout or "systemd-run falhou").strip()
+        raise SystemExit(err[:500])
+    pid = _main_pid(unit)
+    print(pid)
+    return 0
+
+
+def stop(args: argparse.Namespace) -> int:
+    _require_root()
+    _stop_unit(unit_name(args.server_id))
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="game_process_spawn")
+    sub = parser.add_subparsers(dest="action", required=True)
+
+    spawn_p = sub.add_parser("spawn")
+    spawn_p.add_argument("--server-id", type=int, required=True)
+    spawn_p.add_argument("--user", required=True)
+    spawn_p.add_argument("--owner", default="rts")
+    spawn_p.add_argument("--memory-mb", type=int, required=True)
+    spawn_p.add_argument("--cpu-quota", type=int, default=100)
+    spawn_p.add_argument("--tasks-max", type=int, default=128)
+    spawn_p.add_argument("--data-root", required=True)
+    spawn_p.add_argument("--cwd", required=True)
+    spawn_p.add_argument("--log", required=True)
+    spawn_p.add_argument("--allow-bin", action="append", default=[])
+    spawn_p.add_argument("command", nargs=argparse.REMAINDER)
+    spawn_p.set_defaults(func=spawn)
+
+    stop_p = sub.add_parser("stop")
+    stop_p.add_argument("--server-id", type=int, required=True)
+    stop_p.set_defaults(func=stop)
+
+    args = parser.parse_args(argv)
+    if args.action == "spawn" and args.command and args.command[0] == "--":
+        args.command = args.command[1:]
+    return int(args.func(args) or 0)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

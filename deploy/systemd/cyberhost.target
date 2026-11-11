@@ -1,0 +1,7 @@
+[Unit]
+Description=CyberHost stack
+Wants=network-online.target mariadb.service nginx.service cyberhost-backend.service cyberhost-frontend.service cyberhost-discord.service
+After=network-online.target mariadb.service nginx.service cyberhost-backend.service cyberhost-frontend.service cyberhost-discord.service
+
+[Install]
+WantedBy=multi-user.target

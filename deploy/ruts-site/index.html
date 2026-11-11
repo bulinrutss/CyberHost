@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruts - Full Stack Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">ruts@dev:~$</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projetos</a></li>
+                <li><a href="#contact">Contato</a></li>
+                <li><a href="/cyberhost">Host</a></li>
+                <li><a href="/financeiro">Financeiro</a></li>
+                <li><a href="https://discord.gg/Ra5yB4CrCG">Fivem</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="btn red"></span>
+                            <span class="btn yellow"></span>
+                            <span class="btn green"></span>
+                        </div>
+                        <div class="terminal-title">ruts@dev: ~</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">ruts@dev:~$</span>
+                            <span class="command typing-text">whoami</span>
+                        </div>
+                        <div class="terminal-output">
+                            <div class="output-line">Full Stack Developer</div>
+                            <div class="output-line">DevOps Engineer</div>
+                            <div class="output-line">Infrastructure Specialist</div>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">ruts@dev:~$</span>
+                            <span class="cursor">_</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-info">
+                <h1>Olá, eu sou <span class="highlight">Marcos</span></h1>
+                <h2>Full Stack Developer & DevOps Engineer</h2>
+                <p>Especialista em desenvolvimento web, infraestrutura, virtualização e automação. Criando soluções escaláveis do front-end ao deploy.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn-primary">Ver Projetos</a>
+                    <a href="#contact" class="btn-secondary">Contato</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">$ cat about.txt</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Sou um desenvolvedor Full Stack com experiência sólida em tecnologias web modernas e infraestrutura. Minha paixão é criar soluções completas, desde a interface do usuário até a arquitetura de sistemas complexos.</p>
+                    <p>Com expertise em DevOps, redes e virtualização, consigo entregar projetos que não apenas funcionam bem, mas também são escaláveis, seguros e eficientes em produção.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-text">Anos de Experiência</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-text">Projetos Concluídos</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-text">Dedicação</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">$ ls -la skills/</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Frontend</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">HTML5</span>
+                        <span class="skill-item">CSS3</span>
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">jQuery</span>
+                        <span class="skill-item">React</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Lua (Senior)</span>
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">PHP</span>
+                        <span class="skill-item">APIs REST</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> DevOps</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">Kubernetes</span>
+                        <span class="skill-item">CI/CD</span>
+                        <span class="skill-item">AWS</span>
+                        <span class="skill-item">Linux</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-network-wired"></i> Infraestrutura</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Redes</span>
+                        <span class="skill-item">Virtualização</span>
+                        <span class="skill-item">Hospedagem</span>
+                        <span class="skill-item">Monitoramento</span>
+                        <span class="skill-item">Segurança</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Console -->
+    <section id="console" class="console-section">
+        <div class="container">
+            <h2 class="section-title">$ ./interactive_assistant.sh</h2>
+            <div class="console-container">
+                <div class="console-window">
+                    <div class="console-header">
+                        <div class="console-buttons">
+                            <span class="btn red"></span>
+                            <span class="btn yellow"></span>
+                            <span class="btn green"></span>
+                        </div>
+                        <div class="console-title">Assistant Terminal</div>
+                    </div>
+                    <div class="console-body" id="console-body">
+                        <div class="console-line">
+                            <span class="console-prompt">assistant@ruts:~$</span>
+                            <span class="console-text">Olá! Faça uma pergunta sobre mim ou meu trabalho.</span>
+                        </div>
+                        <div class="console-line">
+                            <span class="console-prompt">assistant@ruts:~$</span>
+                            <span class="console-text">Digite 'help' para ver comandos disponíveis.</span>
+                        </div>
+                    </div>
+                    <div class="console-input-line">
+                        <span class="console-prompt">você@terminal:~$</span>
+                        <input type="text" id="console-input" class="console-input" placeholder="Digite sua pergunta...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">$ git log --oneline projects/</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Sistema de E-commerce</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p>Plataforma completa de e-commerce com React, Node.js e integração de pagamentos.</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>MongoDB</span>
+                        <span>Docker</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Infraestrutura Cloud</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p>Automação de infraestrutura AWS com Terraform e pipelines CI/CD.</p>
+                    <div class="project-tech">
+                        <span>AWS</span>
+                        <span>Terraform</span>
+                        <span>Jenkins</span>
+                        <span>Kubernetes</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Financeiro</h3>
+                        <div class="project-links">
+                            <a href="/financeiro" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p>Agenda pessoal e controle de entradas, saídas e métricas do mês.</p>
+                    <div class="project-tech">
+                        <span>Next.js</span>
+                        <span>FastAPI</span>
+                        <span>MariaDB</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Sistema de Monitoramento</h3>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p>Dashboard em tempo real para monitoramento de servidores e aplicações.</p>
+                    <div class="project-tech">
+                        <span>Lua</span>
+                        <span>Vue.js</span>
+                        <span>InfluxDB</span>
+                        <span>Grafana</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">$ cat contact.info</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contato@ruts.dev</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin.com/in/marcos-gasperin-396845243</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>github.com/bulinrutss</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>FLN - Brasil</span>
+                    </div>
+                </div>
+                <!-- <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Nome" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Mensagem" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Enviar Mensagem</button>
+                    </form>
+                </div> -->
+            </div>
+        </div>  
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Ruts. Todos os direitos reservados.</p>
+            <p>Desenvolvido com Claude Sonnet 4 em apenas um prompt</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
